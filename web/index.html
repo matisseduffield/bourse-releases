@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#E8ECE5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1412" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Bourse">
+<meta name="description" content="Bourse: your stocks, and the whole market on one map.">
+<title>Bourse</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><rect x=%221%22 y=%221%22 width=%227%22 height=%228%22 rx=%221%22 fill=%22%232CCE5C%22/><rect x=%229%22 y=%221%22 width=%226%22 height=%225%22 rx=%221%22 fill=%22%23F0363A%22/><rect x=%229%22 y=%227%22 width=%226%22 height=%228%22 rx=%221%22 fill=%22%231E9C49%22/><rect x=%221%22 y=%2210%22 width=%227%22 height=%225%22 rx=%221%22 fill=%22%234B5463%22/></svg>">
+<link rel="preload" href="fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+<div class="app" id="app">
+  <header>
+    <div class="top">
+      <div class="brand">
+        <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><rect x="2" y="2" width="13" height="14" rx="1.5" fill="#2CCE5C"/><rect x="16" y="2" width="8" height="8" rx="1.5" fill="#F0363A"/><rect x="16" y="11" width="8" height="13" rx="1.5" fill="#1E9C49"/><rect x="2" y="17" width="13" height="7" rx="1.5" fill="#4B5463"/></svg>
+        <h1 class="mark">Bourse</h1>
+      </div>
+      <div class="top-right">
+      <button class="version" id="version" type="button" title="Check for updates" hidden></button>
+      <button class="icon-btn" id="searchBtn" type="button" aria-label="Find a stock">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="8.8" cy="8.8" r="5.8"/><path d="m13.2 13.2 4.3 4.3"/></svg>
+      </button>
+      </div>
+    </div>
+    <div class="modes">
+      <div class="tabs" role="tablist" aria-label="View">
+        <button class="tab" id="tabList" role="tab" type="button">List</button>
+        <button class="tab" id="tabMap" role="tab" type="button">Map</button>
+      </div>
+      <p class="meta" id="meta"></p>
+    </div>
+  </header>
+
+  <p class="install-hint" id="installHint" hidden><span>Keep Bourse on your iPhone: tap Share, then Add to Home Screen.</span><button type="button" aria-label="Dismiss">×</button></p>
+
+  <section class="update" id="updateCard" aria-label="App update" hidden>
+    <div>
+      <p class="update-title" id="updateTitle">Update available</p>
+      <p class="update-sub" id="updateSub"></p>
+    </div>
+    <ul class="update-notes" id="updateNotes" hidden></ul>
+    <p class="update-msg" id="updateMsg" hidden></p>
+    <div class="update-progress" id="updateProgress" hidden>
+      <div class="update-track"><span id="updateBar"></span></div>
+      <span class="update-pct" id="updatePct">0%</span>
+    </div>
+    <div class="actions" id="updateActions">
+      <button class="btn" id="updateLater" type="button">Not now</button>
+      <button class="btn primary" id="updateGo" type="button">Update</button>
+    </div>
+  </section>
+
+  <!-- Your stocks -->
+  <main class="list-view" id="listView">
+    <div class="lists" id="lists" role="group" aria-label="Your lists"></div>
+    <div class="list-tools">
+      <button class="tool" id="sortBtn" type="button"></button>
+      <button class="tool" id="editBtn" type="button">Edit</button>
+    </div>
+    <div class="rows" id="rows"></div>
+    <nav class="legal" aria-label="Legal"><a href="https://teloone.au/apps/bourse/privacy/" rel="noreferrer">Privacy</a><a href="https://teloone.au/apps/bourse/terms/" rel="noreferrer">Terms</a></nav>
+  </main>
+
+  <!-- The market map -->
+  <main class="map-view" id="mapView" hidden>
+    <div class="markets" id="markets" role="group" aria-label="Market"></div>
+    <div class="stage" id="stage">
+      <canvas id="canvas" tabindex="0" aria-label="Market map. Pinch or use plus and minus to zoom, drag or use the arrow keys to move, tap a square for details."></canvas>
+      <button class="fit" id="fitBtn" type="button" hidden>Fit</button>
+      <p class="hint" id="mapHint" hidden>Pinch to zoom. Tap a square for details.</p>
+      <button class="peek" id="peek" type="button" hidden>
+        <span class="peek-who"><b id="peekSymbol"></b><small id="peekName"></small></span>
+        <span class="peek-nums"><b id="peekPrice"></b><small id="peekMove"></small></span>
+      </button>
+      <p class="wait" id="mapWait" hidden></p>
+    </div>
+    <div class="map-tools">
+      <div class="seg" id="periods" role="group" aria-label="Colour by"></div>
+      <button class="tool" id="sizeBtn" type="button"></button>
+    </div>
+    <div class="legend" id="legend" aria-hidden="true"></div>
+  </main>
+</div>
+
+<!-- One stock -->
+<dialog class="page" id="stock" aria-labelledby="stockSymbol">
+  <div class="page-head">
+    <button class="icon-btn" type="button" data-close aria-label="Back">
+      <svg width="10" height="16" viewBox="0 0 10 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2 2 8l6 6"/></svg>
+    </button>
+    <div class="page-title">
+      <h2 id="stockSymbol"></h2>
+      <p id="stockName"></p>
+    </div>
+    <button class="tool" id="followBtn" type="button"></button>
+  </div>
+  <div class="page-body">
+    <div class="headline">
+      <p class="big-price"><span id="stockPrice"></span><small id="stockCurrency"></small></p>
+      <p class="big-move" id="stockMove"></p>
+      <p class="after" id="stockAfter"></p>
+    </div>
+    <div class="ranges" id="ranges" role="group" aria-label="Chart range"></div>
+    <div class="chart" id="chart">
+      <svg id="chartSvg" aria-hidden="true"></svg>
+      <p class="readout" id="readout" hidden></p>
+    </div>
+    <div class="bands" id="bands"></div>
+    <div class="stats" id="stats"></div>
+    <p class="earnings" id="earnings" hidden></p>
+    <p class="about" id="about" hidden></p>
+    <section id="newsBox" hidden>
+      <h3>News</h3>
+      <div class="news" id="news"></div>
+    </section>
+    <p class="source">Prices from Yahoo Finance and may be delayed. Not advice.</p>
+  </div>
+</dialog>
+
+<!-- Find a stock -->
+<dialog class="page" id="find" aria-label="Find a stock">
+  <div class="page-head">
+    <button class="icon-btn" type="button" data-close aria-label="Back">
+      <svg width="10" height="16" viewBox="0 0 10 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2 2 8l6 6"/></svg>
+    </button>
+    <input class="find-box" id="findBox" type="search" placeholder="Name or symbol" autocomplete="off" autocapitalize="characters" spellcheck="false" enterkeyhint="search">
+  </div>
+  <div class="page-body"><div class="found" id="found"></div></div>
+</dialog>
+
+<!-- A name for a new list -->
+<dialog class="ask" id="nameList" aria-labelledby="nameTitle">
+  <form method="dialog" id="nameForm">
+    <h2 id="nameTitle">New list</h2>
+    <input class="find-box" id="nameBox" type="text" maxlength="24" placeholder="Name" autocomplete="off">
+    <div class="actions">
+      <button class="btn" type="button" data-cancel>Cancel</button>
+      <button class="btn primary" type="submit">Create</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="universes.js?v=2"></script>
+<script src="lib.js?v=2"></script>
+<script src="app.js?v=3"></script>
+<script src="pwa.js"></script>
+</body>
+</html>

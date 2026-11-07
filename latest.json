@@ -1,0 +1,13 @@
+{
+  "versionCode": 10008,
+  "versionName": "1.0.8",
+  "apk": "https://raw.githubusercontent.com/matisseduffield/bourse-releases/main/Bourse-v1.0.8.apk",
+  "size": 257291,
+  "sha256": "4fc48de8ddc6006fc6cca86ae5e03c0a77982f8478b4a1ece49fa2cfa27066ab",
+  "publishedAt": "2026-11-07T13:05:08Z",
+  "notes": [
+    "The market map no longer shows Alphabet, Fox and News Corp twice their size",
+    "An open stock keeps its price and today's chart up to date",
+    "Prices and stats stay fully visible with large text"
+  ]
+}
