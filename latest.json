@@ -1,0 +1,11 @@
+{
+  "versionCode": 10013,
+  "versionName": "1.0.13",
+  "apk": "https://raw.githubusercontent.com/matisseduffield/bourse-releases/main/Bourse-v1.0.13.apk",
+  "size": 266999,
+  "sha256": "8c911b50735a6b7818289eaffd4eb3f1e835614b13536ef0986681686f4c510a",
+  "publishedAt": "2026-11-13T12:47:49Z",
+  "notes": [
+    "The change under the price now follows the range you pick: past week, past month and so on"
+  ]
+}
