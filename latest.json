@@ -1,0 +1,12 @@
+{
+  "versionCode": 10301,
+  "versionName": "1.3.1",
+  "apk": "https://raw.githubusercontent.com/matisseduffield/bourse-releases/main/Bourse-v1.3.1.apk",
+  "size": 294171,
+  "sha256": "c91d7d897a237a5c79474a5a582dc74746e981ffc08fc7e7d64011aed4085f81",
+  "publishedAt": "2026-11-21T09:23:05Z",
+  "notes": [
+    "A coin's day chart is now its last 24 hours, so the line starts at its base line",
+    "Coins no longer show a Today range and an Open that belonged to a different day"
+  ]
+}
